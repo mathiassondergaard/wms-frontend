@@ -8,9 +8,10 @@
 <script>
     import {goto} from "$app/navigation";
     import { getNotificationsContext } from 'svelte-notifications';
-    const { addNotification } = getNotificationsContext();
     import {options} from '$lib/toaster'
+    import {handleResponse} from "$lib/handleResponse";
     import {post} from '$lib/api';
+    const { addNotification } = getNotificationsContext();
 
     export let token;
 
@@ -26,19 +27,14 @@
             token: token
         });
 
-        if (response.status === 401) {
-            addNotification(options(`${response.data.message}`, 'warning'));
-            return null;
-        }
-        else if (response.status === 500) {
-            addNotification(options('Unexpected error occurred, please try again!', 'danger'));
-            return null;
-        }
+        const handled = handleResponse(response, addNotification);
 
-        addNotification(options('Successfully updated your password. Redirecting to login!', 'success'));
-        await new Promise(r => setTimeout(r, 2000));
+        if (handled) {
+            addNotification(options('Successfully updated your password. Redirecting to login!', 'success'));
+            await new Promise(r => setTimeout(r, 2000));
 
-        await goto('/login');
+            await goto('/login');
+        }
     }
 
 </script>

@@ -1,5 +1,5 @@
 <script context="module">
-    export async function load({ fetch }) {
+    export async function load({fetch}) {
         const response = await fetch('http://localhost:3000/api/auth/token/verify', {credentials: "include"});
 
         if (response.status === 200) {
@@ -16,44 +16,26 @@
 
 <script>
     import {goto} from "$app/navigation";
-    import { getNotificationsContext } from 'svelte-notifications';
-    const { addNotification } = getNotificationsContext();
-    import {options} from "$lib/toaster";
+    import {getNotificationsContext} from 'svelte-notifications';
+    import {handleResponse} from "$lib/handleResponse";
+    import {post} from '$lib/api';
+
+    const {addNotification} = getNotificationsContext();
 
     let uname = '';
     let pw = '';
 
     async function submit() {
         try {
-            const response = await fetch(`http://localhost:3000/api/auth/sign-in`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                credentials: "include",
-                body: JSON.stringify({
-                    username: uname,
-                    password: pw
-                }),
-            });
+            const response = await post(`/auth/sign-in`);
 
             uname = null;
             pw = null;
 
-            if (response.status === 401 || 500) {
-                if (response.status === 401) {
-                    const data = await response.json();
-                    console.log(data)
-                    addNotification(options(`${data.message}`, 'warning'))
-                    return null;
-                }
-                else if (response.status === 500) {
-                    addNotification(options('Unexpected error occurred.. please try again!', 'danger'))
-                    return null;
-                }
+            const handled = handleResponse(response, addNotification);
+            if (handled) {
+                await goto('/');
             }
-
-            await goto('/');
         } catch (err) {
             console.log(err);
         }
@@ -81,7 +63,7 @@
                                type="password">
                         <br>
                         <br>
-                        <button class="btn-success btn" type="submit" >Submit</button>
+                        <button class="btn-success btn" type="submit">Submit</button>
                     </form>
                 </div>
             </div>
