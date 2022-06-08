@@ -1,5 +1,6 @@
 <script>
     import Fa from 'svelte-fa/src/fa.svelte'
+    import Notifications from "svelte-notifications";
     import {post} from "$lib/api";
     import { faTasks, faWarehouse, faPeopleGroup, faUser, faArrowRightFromBracket, faLock, faChalkboard, faPaperPlane, faDownload} from '@fortawesome/free-solid-svg-icons'
     import '../app.css';
@@ -10,7 +11,7 @@
 
 </script>
 
-<div class="navbar bg-base-300">
+<div class="navbar">
     <div class="navbar-start">
         <div class="dropdown">
             <label tabindex="0" class="btn btn-ghost lg:hidden">
@@ -94,4 +95,8 @@
     </div>
 </div>
 
-<slot/>
+<Notifications>
+    <slot/>
+</Notifications>
+
+

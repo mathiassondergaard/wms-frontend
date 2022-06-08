@@ -29,7 +29,7 @@
     <h1 class=" title-font font-bold text-2xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-3xl">Your Dashboard</h1>
 </div>
 
-<section class="pt-24">
+<section class="pt-20">
     <div class="container mx-auto flex flex-row flex-wrap p-8 rounded-box w-full">
         <div class="grid grid-cols-5 gap-3 w-full">
             <div class="col-span-3">
