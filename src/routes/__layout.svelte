@@ -37,7 +37,7 @@
                 <li><a>Item 3</a></li>
             </ul>
         </div>
-        <a href="/" sveltekit:prefetch="" class="btn btn-ghost normal-case text-xl">WMS</a>
+        <a href="/" sveltekit:prefetch="" class="btn btn-ghost normal-case text-xl">Itemizer</a>
     </div>
     <div class="navbar-center hidden lg:flex">
         <ul class="menu menu-horizontal p-0">

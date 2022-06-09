@@ -174,7 +174,7 @@
                                 </ul>
                             </div>
                         </th>
-                        <th class="justify-items-center">
+                        <th>
                             <div class="dropdown">
                                 <label tabindex="0" class="btn m-1 btn-xs btn-ghost">
                                     Name

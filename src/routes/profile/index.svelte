@@ -22,6 +22,8 @@
     import {patch} from "$lib/authApi";
     import {getNotificationsContext} from 'svelte-notifications';
     import {handleResponse} from "$lib/handleResponse";
+    import EmployeeInfoBlock from "../../components/EmployeeInfoBlock.svelte";
+    import UserInfoBlock from "../../components/UserInfoBlock.svelte";
     import {options} from "$lib/toaster";
 
     const {addNotification} = getNotificationsContext();
@@ -73,56 +75,10 @@
                 <br/>
                 <div class="grid grid-cols-7 gap-3 w-full">
                     <div class="col-span-3">
-                        <h2 class="font-bold text-lg">Personal info</h2>
-                        <br/>
-                        <div class="w-2/3">
-                            <h3 class="font-bold">Employee ID</h3>
-                            <p>{details.employee.id}</p>
-                        </div>
-                        <div class="w-2/3">
-                            <h3 class="font-bold">Name</h3>
-                            <p>{details.employee.name}</p>
-                        </div>
-                        <div class="w-2/3">
-                            <h3 class="font-bold">
-                                Phone
-                            </h3>
-                            <p>{details.employee.phone}</p>
-                        </div>
-                        <div class="w-2/3">
-                            <h3 class="font-bold">
-                                Title
-                            </h3>
-                            <p>{details.employee.title}</p>
-                        </div>
-                        <div class="w-2/3">
-                            <h3 class="font-bold">
-                                Address
-                            </h3>
-                            <p>{details.employee.address.street}</p>
-                            <p>{details.employee.address.zip}, {details.employee.address.city}</p>
-                            <p>{details.employee.address.country}</p>
-                        </div>
+                        <EmployeeInfoBlock employee={details.employee} address={details.address} />
                     </div>
                     <div>
-                        <h2 class="text-lg font-bold">User info</h2>
-                        <br/>
-                        <div class="w-2/3">
-                            <h3 class="font-bold">Username</h3>
-                            <p>{details.user.username}</p>
-                        </div>
-                        <div class="w-2/3">
-                            <h3 class="font-bold">Email</h3>
-                            <p>{details.user.email}</p>
-                        </div>
-                        <div class="w-2/3">
-                            <h3 class="font-bold">Roles</h3>
-                            <ul>
-                                {#each details.user.roles as role}
-                                    <li>{role}</li>
-                                {/each}
-                            </ul>
-                        </div>
+                        <UserInfoBlock user={details.user} />
                         <br/>
                         <div class="w-2/3">
                             <h3 class="font-bold">Change password</h3>

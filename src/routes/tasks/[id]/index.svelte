@@ -92,7 +92,7 @@
 </svelte:head>
 
 <div class="flex mx-auto justify-start pl-20 pt-20">
-    <h1 class=" title-font font-bold text-2xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-3xl">{task.name}</h1>
+    <h1 class=" title-font font-bold text-2xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-3xl">Details of: &nbsp;{task.name}</h1>
 </div>
 
 <section class="pt-5">
@@ -105,6 +105,10 @@
                 </div>
                 <h2 class="card-title">{task.name}</h2>
                 <br>
+                <div class="w-2/3">
+                    <h3 class="font-bold">ID</h3>
+                    <p>{task.id}</p>
+                </div>
                 <div class="w-2/3">
                     <h3 class="font-bold">Description</h3>
                     <p>{task.description}</p>

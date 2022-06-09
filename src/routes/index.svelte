@@ -20,10 +20,11 @@
 
 <script>
     import {onMount} from "svelte";
-    import {patch} from "$lib/api";
     import {getNotificationsContext} from 'svelte-notifications';
-    import {handleResponse} from "$lib/handleResponse";
     import {LightPaginationNav, paginate} from "svelte-paginate";
+    import {handleResponse} from "$lib/handleResponse";
+    import {patch} from "$lib/api";
+    import {options} from "$lib/toaster";
 
     export let tasks;
     const {addNotification} = getNotificationsContext();
@@ -43,7 +44,7 @@
     const startTask = async (task) => {
         let index = items.indexOf(task);
 
-        const response = await patch(`/resources/tasks/${task.id}/started-at`);
+        const response = await patch(`/resources/tasks/${task.id}/start`);
 
         const handled = handleResponse(response, addNotification);
         if (handled) {
@@ -58,13 +59,11 @@
     const completeTask = async (task) => {
         let index = items.indexOf(task);
 
-        const response = await patch(`/resources/tasks/${task.id}/completed-at`);
+        const response = await patch(`/resources/tasks/${task.id}/complete`);
 
         const handled = handleResponse(response, addNotification);
 
         if (handled) {
-            console.log(response.data.message);
-            console.log(response.data)
             addNotification(options(response.data.message, 'success'));
             items[index].completedAt = response.data.date;
             items[index].status = response.data.status;
@@ -293,34 +292,38 @@
                         <tbody>
                         {#each paginatedItems as task}
                             <tr>
-                            <td>{task.id}</td>
-                            <td>{task.name}</td>
-                            <td>{task.assignee}</td>
-                            {#if task.level === 'MEDIUM'}
-                                <td style="background: yellow">{task.level}</td>
-                            {:else if task.level === 'HIGH'}
-                                <td style="background: red">{task.level}</td>
-                            {:else}
-                                <td style="background: lawngreen">{task.level}</td>
-                            {/if}
-                            <td>{task.status}</td>
-                            <td>
-                                {#if !task.startedAt}
-                                    <button on:click={() => startTask(task)} class="btn btn-ghost btn-sm btn-outline">Start Task</button>
-                            {:else}
+                                <td>{task.id}</td>
+                                <td>{task.name}</td>
+                                <td>{task.assignee}</td>
+                                {#if task.level === 'MEDIUM'}
+                                    <td style="background: yellow">{task.level}</td>
+                                {:else if task.level === 'HIGH'}
+                                    <td style="background: red">{task.level}</td>
+                                {:else}
+                                    <td style="background: lawngreen">{task.level}</td>
+                                {/if}
+
+                                <td>
+                                    {task.status}
+                                </td>
+                                <td>
+                                    {#if !task.startedAt}
+                                        <button on:click={() => startTask(task)} class="btn btn-ghost btn-sm btn-outline">Start Task</button>
+                                    {:else }
                                         {new Date(task.startedAt).getUTCDay()}/{new Date(task.startedAt).getUTCMonth()}-{new Date(task.startedAt).getUTCFullYear()}
                                         {new Date(task.startedAt).getUTCHours()}:{new Date(task.startedAt).getUTCMinutes()}
-
-                                {/if}
-                            </td>
-                            <td>
-                                {#if !task.completedAt}
+                                    {/if}
+                                </td>
+                                <td>
+                                    {#if !task.completedAt}
                                         <button on:click={() => completeTask(task)} class="btn btn-ghost btn-sm btn-outline">Complete Task</button>
-                                {:else}
+                                    {:else }
+                                        <p>
                                             {new Date(task.completedAt).getUTCDay()}/{new Date(task.completedAt).getUTCMonth()}-{new Date(task.completedAt).getUTCFullYear()}
                                             {new Date(task.completedAt).getUTCHours()}:{new Date(task.completedAt).getUTCMinutes()}
-                                {/if}
-                            </td>
+                                        </p>
+                                    {/if}
+                                </td>
                             <td>
                                 <a class="btn btn-sm btn-outline btn-ghost" rel="external" sveltekit:prefetch="" href="/tasks/{task.id}" >Details</a>
                             </td>

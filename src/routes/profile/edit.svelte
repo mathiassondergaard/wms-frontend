@@ -101,16 +101,16 @@
                             </div>
                         <div class="w-2/3">
                             <h3 class="font-bold">Street</h3>
-                            <input bind:value={employeeToUpdate.employee.address.street} type="text" placeholder="{details.employee.address.street}"
+                            <input bind:value={employeeToUpdate.employee.address.street} type="text" placeholder="{details.address.street}"
                                    class="input input-sm input-bordered w-2/3 max-w-xs"/>
                             <h3 class="font-bold">City</h3>
-                            <input bind:value={employeeToUpdate.employee.address.zip} type="text" placeholder="{details.employee.address.zip}"
+                            <input bind:value={employeeToUpdate.employee.address.zip} type="text" placeholder="{details.address.zip}"
                                        class="input input-sm input-bordered w-2/3 max-w-xs"/>
                             <h3 class="font-bold">Zip Code</h3>
-                            <input bind:value={employeeToUpdate.employee.address.city} type="text" placeholder="{details.employee.address.city}"
+                            <input bind:value={employeeToUpdate.employee.address.city} type="text" placeholder="{details.address.city}"
                                            class="input input-sm input-bordered w-2/3 max-w-xs"/>
                             <h3 class="font-bold">Country</h3>
-                            <input bind:value={employeeToUpdate.employee.address.country} type="text" placeholder="{details.employee.address.country}"
+                            <input bind:value={employeeToUpdate.employee.address.country} type="text" placeholder="{details.address.country}"
                                    class="input input-sm input-bordered w-2/3 max-w-xs"/>
                         </div>
                     </div>

@@ -47,7 +47,7 @@
         <div class="max-w-md">
             <div class="card rounded-box card-bordered border-gray-300 shadow-xl w-96">
                 <div class="pt-5">
-                    <h1 class="font-bold text-lg">WMS LOGIN</h1>
+                    <h1 class="font-bold text-lg">Itemizer</h1>
                 </div>
                 <div class="p-5">
                     <form on:submit|preventDefault={submit}>
