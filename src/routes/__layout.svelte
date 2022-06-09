@@ -4,9 +4,11 @@
     import {post} from "$lib/api";
     import { faTasks, faWarehouse, faPeopleGroup, faUser, faArrowRightFromBracket, faLock, faChalkboard, faPaperPlane, faDownload} from '@fortawesome/free-solid-svg-icons'
     import '../app.css';
+    import {goto} from "$app/navigation";
 
     const logout = async () => {
         await post('/auth/log-out');
+        await goto('/login');
     };
 
 </script>
@@ -110,8 +112,8 @@
                     </li>
             </ul>
         </div>
-        <button class="pr-5"><Fa icon={faUser} size="lg"/></button>
-        <button class="pr-5" on:click={logout}><Fa icon={faArrowRightFromBracket} size="lg"/></button>
+            <a href="/profile" rel="external" class="btn btn-ghost btn-sm"><Fa icon={faUser} size="lg"/></a>
+            <button class="btn btn-ghost btn-sm" on:click={logout}><Fa icon={faArrowRightFromBracket} size="lg"/></button>
     </div>
 </div>
 

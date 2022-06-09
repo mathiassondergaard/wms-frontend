@@ -10,7 +10,7 @@
     import { getNotificationsContext } from 'svelte-notifications';
     import {options} from '$lib/toaster'
     import {handleResponse} from "$lib/handleResponse";
-    import {post} from '$lib/api';
+    import {post} from '$lib/authApi';
     const { addNotification } = getNotificationsContext();
 
     export let token;
@@ -22,16 +22,13 @@
         if (pw !== confirmPw) {
             addNotification(options('Passwords do not match!', 'warning'));
         }
-        const response = await post('/auth/users/first-login', {
-            password: password,
-            token: token
-        });
+        const response = await post('/users/first-login', `${password}:${token}`);
 
         const handled = handleResponse(response, addNotification);
 
         if (handled) {
             addNotification(options('Successfully updated your password. Redirecting to login!', 'success'));
-            await new Promise(r => setTimeout(r, 2000));
+            await new Promise(r => setTimeout(r, 3000));
 
             await goto('/login');
         }

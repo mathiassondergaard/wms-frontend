@@ -85,7 +85,7 @@
                 <form on:submit|preventDefault={submit(task)}>
                     <div class="w-2/3">
                         <h3 class="font-bold">Name</h3>
-                        <input bind:value={task.name} type="text" placeholder="{task.name}" class="input input-bordered w-2/3 max-w-xs" />
+                        <input bind:value={task.name} type="text" placeholder="{task.name}" class="input input-sm input-bordered w-2/3 max-w-xs" />
                     </div>
                     <br/>
                     <div class="w-2/3">
@@ -114,7 +114,7 @@
                         <h3 class="font-bold">
                             Status
                         </h3>
-                        <select bind:value={task.status} class="select select-bordered w-full max-w-xs">
+                        <select bind:value={task.status} class="select select-sm select-bordered w-full max-w-xs">
                             <option disabled selected>Pick a status, previous: {task.status}</option>
                             {#each status as status}
                                 <option value={status}>{status}</option>
@@ -124,10 +124,10 @@
                     <br/>
                     <div class="w-2/3">
                         <h3 class="font-bold">
-                            Level
+                            Priority
                         </h3>
-                        <select bind:value={task.level} class="select select-bordered w-full max-w-xs">
-                            <option disabled selected>Pick a level, previous: {task.level}</option>
+                        <select bind:value={task.level} class="select select-sm select-bordered w-full max-w-xs">
+                            <option disabled selected>Pick a priority, previous: {task.level}</option>
                             {#each levels as level}
                                 <option value={level}>{level}</option>
                             {/each}
@@ -136,13 +136,12 @@
                     <br/>
                     <div class="w-2/3">
                         <h3 class="font-bold">Started At</h3>
-                        <input bind:value={task.startedAt} type="datetime-local" placeholder="{task.startedAt}" class="input input-bordered w-2/3 max-w-xs" />
+                        <input bind:value={task.startedAt} type="datetime-local" placeholder="{task.startedAt}" class="input input-sm input-bordered w-2/3 max-w-xs" />
                     </div>
-                    <br/>
                     <br/>
                     <div class="w-2/3">
                         <h3 class="font-bold">Completed At</h3>
-                        <input bind:value={task.completedAt} type="datetime-local" placeholder="{task.completedAt}" class="input input-bordered w-2/3 max-w-xs" />
+                        <input bind:value={task.completedAt} type="datetime-local" placeholder="{task.completedAt}" class="input input-sm input-bordered w-2/3 max-w-xs" />
                     </div>
                     <div class="card-actions pt-5 justify-end">
                         <button class="btn btn-ghost btn-sm btn-outline" type="submit">Submit</button>

@@ -148,7 +148,7 @@
                 </div>
                 <div class="w-2/3">
                     <h3 class="font-bold">
-                        Level
+                        Priority
                     </h3>
                     <label class="label">
                         <span class="">{task.level}</span>

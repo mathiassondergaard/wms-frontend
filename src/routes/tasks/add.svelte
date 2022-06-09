@@ -101,7 +101,7 @@
                     <br/>
                     <div class="w-2/3">
                         <h3 class="font-bold">
-                            Level
+                            Priority
                         </h3>
                         <select bind:value={task.level} class="select select-bordered w-full max-w-xs">
                             <option disabled selected>Pick a level</option>

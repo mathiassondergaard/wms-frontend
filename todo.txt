@@ -1,9 +1,0 @@
-make a card list with 4 columns, each has one of the statusses on task and every task in it
-use overflow for scrolling them
-each task on the board has the functions provided by API
-
-find by assignee, use button and equal new list
-find by employeeid, use button and equal new list
-
-//
-inventory

@@ -18,7 +18,7 @@
     import {goto} from "$app/navigation";
     import {getNotificationsContext} from 'svelte-notifications';
     import {handleResponse} from "$lib/handleResponse";
-    import {post} from '$lib/api';
+    import {post} from '$lib/authApi';
 
     const {addNotification} = getNotificationsContext();
 
@@ -27,7 +27,7 @@
 
     async function submit() {
         try {
-            const response = await post(`/auth/sign-in`);
+            const response = await post(`/sign-in`, `${uname}:${pw}`);
 
             uname = null;
             pw = null;
