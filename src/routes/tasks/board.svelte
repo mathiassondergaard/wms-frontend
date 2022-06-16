@@ -40,9 +40,9 @@
 <section class="pt-5">
     <div class="container mx-auto p-8 rounded-box w-full">
         <div class="grid grid-cols-4 gap-6 w-full">
-            <div class="rounded-box shadow-lg">
+            <div class="">
                 <h2 class="pb-5 pt-5 text-xl title-font font-bold">NOT-STARTED</h2>
-                <div class="overflow-scroll rounded-box shadow-xl">
+                <div class="overflow-scroll rounded-box h-3/4 border shadow-xl">
                     {#if tasksNotStarted.length === 0}
                         <h2 class="pb-5 pt-5 text-lg title-font font-bold">No data</h2>
                     {:else }
@@ -50,9 +50,9 @@
                     {/if}
                 </div>
             </div>
-            <div class="rounded-box shadow-lg">
+            <div class="">
                 <h2 class="pb-5 pt-5 text-xl title-font font-bold">ON-GOING</h2>
-                <div class="overflow-auto rounded-box shadow-xl">
+                <div class="overflow-auto rounded-box h-3/4 border shadow-xl">
                     {#if tasksOnGoing.length === 0}
                         <h2 class="pb-5 pt-5 text-lg title-font font-bold">No data</h2>
                     {:else }
@@ -60,9 +60,9 @@
                     {/if}
                 </div>
             </div>
-            <div class="rounded-box shadow-lg">
+            <div class="">
                 <h2 class="pb-5 pt-5 text-xl title-font font-bold">COMPLETED</h2>
-                <div class="overflow-auto rounded-box shadow-xl">
+                <div class="overflow-auto rounded-box h-3/4 border shadow-xl">
                     {#if tasksCompleted.length === 0}
                         <h2 class="pb-5 pt-5 text-lg title-font font-bold">No data</h2>
                     {:else }
@@ -70,9 +70,9 @@
                     {/if}
                 </div>
             </div>
-            <div class="rounded-box shadow-lg">
+            <div class="">
                 <h2 class="pb-5 pt-5 text-xl title-font font-bold">POSTPONED</h2>
-                <div class="overflow-auto rounded-box shadow-xl">
+                <div class="overflow-auto rounded-box h-3/4 border shadow-xl">
                     {#if tasksPostponed.length === 0}
                         <h2 class="pb-5 pt-5 text-lg title-font font-bold">No data</h2>
                     {:else }
