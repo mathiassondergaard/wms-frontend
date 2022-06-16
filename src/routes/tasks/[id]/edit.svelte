@@ -31,6 +31,7 @@
     import {getNotificationsContext} from 'svelte-notifications';
     import {handleResponse} from "$lib/handleResponse";
     import {options} from "$lib/toaster";
+    import {formatDateString} from "$lib/formatDate";
 
     export let employees;
     export let task;
@@ -136,12 +137,12 @@
                     <br/>
                     <div class="w-2/3">
                         <h3 class="font-bold">Started At</h3>
-                        <input bind:value={task.startedAt} type="datetime-local" placeholder="{task.startedAt}" class="input input-sm input-bordered w-2/3 max-w-xs" />
+                        <input bind:value={task.startedAt} type="datetime-local" placeholder="{formatDateString(task.startedAt)}" class="input input-sm input-bordered w-2/3 max-w-xs" />
                     </div>
                     <br/>
                     <div class="w-2/3">
                         <h3 class="font-bold">Completed At</h3>
-                        <input bind:value={task.completedAt} type="datetime-local" placeholder="{task.completedAt}" class="input input-sm input-bordered w-2/3 max-w-xs" />
+                        <input bind:value={task.completedAt} type="datetime-local" placeholder="{formatDateString(task.completedAt)}" class="input input-sm input-bordered w-2/3 max-w-xs" />
                     </div>
                     <div class="card-actions pt-5 justify-end">
                         <button class="btn btn-ghost btn-sm btn-outline" type="submit">Submit</button>

@@ -24,6 +24,7 @@
     import {getNotificationsContext} from 'svelte-notifications';
     import {handleResponse} from "$lib/handleResponse";
     import {options} from "$lib/toaster";
+    import {formatDateString} from "$lib/formatDate";
 
     const {addNotification} = getNotificationsContext();
 
@@ -185,8 +186,7 @@
                         <p>No data</p>
                         {:else }
                         <p>
-                            {new Date(task.startedAt).getUTCDay()}/{new Date(task.startedAt).getUTCMonth()}-{new Date(task.startedAt).getUTCFullYear()}
-                            {new Date(task.startedAt).getUTCHours()}:{new Date(task.startedAt).getUTCMinutes()}
+                            {formatDateString(task.startedAt)}
                         </p>
                     {/if}
                 </div>
@@ -196,8 +196,7 @@
                         <p>No data</p>
                     {:else }
                         <p>
-                            {new Date(task.completedAt).getUTCDay()}/{new Date(task.completedAt).getUTCMonth()}-{new Date(task.completedAt).getUTCFullYear()}
-                            {new Date(task.completedAt).getUTCHours()}:{new Date(task.completedAt).getUTCMinutes()}
+                            {formatDateString(task.completedAt)}
                         </p>
                     {/if}
                 </div>
@@ -215,6 +214,7 @@
         </div>
     </div>
 </section>
+
 
 <style>
     .dropdown, label{

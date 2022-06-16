@@ -87,7 +87,7 @@
                                            type="password">
                                 </div>
                                 <div class="pt-2">
-                                    <input placeholder="New password" bind:value={pw} class="input input-sm input-bordered max-w-xs"
+                                    <input placeholder="New password (10 chars)" bind:value={pw} class="input input-sm input-bordered max-w-xs"
                                            type="password">
                                 </div>
                                 <div class="pt-2">
@@ -109,7 +109,7 @@
 </section>
 
 <style>
-    .dropdown, label {
+    label {
         display: inline-block;
     }
 

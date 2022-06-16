@@ -74,7 +74,7 @@
                 <form on:submit|preventDefault={submit(task)}>
                     <div class="w-2/3">
                         <h3 class="font-bold">Name</h3>
-                        <input bind:value={task.name} type="text" placeholder="Name" class="input input-bordered w-2/3 max-w-xs" />
+                        <input bind:value={task.name} type="text" placeholder="Name" class="input input-sm input-bordered w-2/3 max-w-xs" />
                     </div>
                     <br/>
                     <div class="w-2/3">
@@ -90,7 +90,7 @@
                         <label class="label">
                             <span class="label-text">Use Control(Windows) or CMD (mac) to select multiple</span>
                         </label>
-                                <select class="select select-bordered w-2/4 h-2/4" multiple bind:value={task.assignedEmployees}>
+                                <select class="select select-sm select-bordered w-2/4 h-2/4" multiple bind:value={task.assignedEmployees}>
                                     {#each employees as employee}
                                         <option value={employee.id}>
                                             {employee.name}
@@ -103,8 +103,8 @@
                         <h3 class="font-bold">
                             Priority
                         </h3>
-                        <select bind:value={task.level} class="select select-bordered w-full max-w-xs">
-                            <option disabled selected>Pick a level</option>
+                        <select bind:value={task.level} class="select select-sm select-bordered w-1/3 max-w-xs">
+                            <option disabled selected>Pick a priority</option>
                             {#each levels as level}
                                 <option value={level}>{level}</option>
                             {/each}

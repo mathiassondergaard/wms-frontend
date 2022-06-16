@@ -25,6 +25,7 @@
     import {handleResponse} from "$lib/handleResponse";
     import {patch} from "$lib/api";
     import {options} from "$lib/toaster";
+    import {formatDateString} from "$lib/formatDate";
 
     export let tasks;
     const {addNotification} = getNotificationsContext();
@@ -310,8 +311,7 @@
                                     {#if !task.startedAt}
                                         <button on:click={() => startTask(task)} class="btn btn-ghost btn-sm btn-outline">Start Task</button>
                                     {:else }
-                                        {new Date(task.startedAt).getUTCDay()}/{new Date(task.startedAt).getUTCMonth()}-{new Date(task.startedAt).getUTCFullYear()}
-                                        {new Date(task.startedAt).getUTCHours()}:{new Date(task.startedAt).getUTCMinutes()}
+                                        {formatDateString(task.startedAt)}
                                     {/if}
                                 </td>
                                 <td>
@@ -319,8 +319,7 @@
                                         <button on:click={() => completeTask(task)} class="btn btn-ghost btn-sm btn-outline">Complete Task</button>
                                     {:else }
                                         <p>
-                                            {new Date(task.completedAt).getUTCDay()}/{new Date(task.completedAt).getUTCMonth()}-{new Date(task.completedAt).getUTCFullYear()}
-                                            {new Date(task.completedAt).getUTCHours()}:{new Date(task.completedAt).getUTCMinutes()}
+                                            {formatDateString(task.completedAt)}
                                         </p>
                                     {/if}
                                 </td>
