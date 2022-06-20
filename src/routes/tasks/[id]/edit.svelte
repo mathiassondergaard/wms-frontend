@@ -72,7 +72,7 @@
 </svelte:head>
 
 <div class="flex mx-auto justify-start pl-20 pt-20">
-    <h1 class=" title-font font-bold text-2xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-3xl">Editing Task {task.id}</h1>
+    <h1 class=" title-font font-bold text-2xl">Editing Task {task.id}</h1>
 </div>
 
 <section class="pt-5">
@@ -84,20 +84,18 @@
                     <a href="/tasks" rel="external" sveltekit:prefetch="" class="btn btn-outline justify-end btn-ghost btn-sm">Return</a>
                 </div>
                 <form on:submit|preventDefault={submit(task)}>
-                    <div class="w-2/3">
+                    <div class="pt-5">
                         <h3 class="font-bold">Name</h3>
-                        <input bind:value={task.name} type="text" placeholder="{task.name}" class="input input-sm input-bordered w-2/3 max-w-xs" />
+                        <input bind:value={task.name} type="text" placeholder="{task.name}" class="input input-sm input-bordered max-w-sm" />
                     </div>
-                    <br/>
-                    <div class="w-2/3">
+                    <div class="pt-5">
                         <h3 class="font-bold">Description</h3>
-                        <textarea bind:value={task.description} class="textarea textarea-bordered h-24 w-2/3" maxlength="250" placeholder="{task.description}"></textarea>
+                        <textarea bind:value={task.description} class="textarea textarea-bordered h-48 w-2/3" maxlength="250" placeholder="{task.description}"></textarea>
                         <label class="label">
                             <span class="label-text-alt">Characters remaining: {250 - task.description.length}</span>
                         </label>
                     </div>
-                    <br/>
-                    <div class="w-2/3 max-h-40 overflow-auto">
+                    <div class="pt-5 max-h-40 overflow-auto">
                         <h3 class="font-bold">Assigned Employees</h3>
                         <label class="label">
                             <span class="label-text">Use Control(Windows) or CMD (mac) to select multiple</span>
@@ -110,8 +108,7 @@
                             {/each}
                         </select>
                     </div>
-                    <br/>
-                    <div class="w-2/3">
+                    <div class="pt-5">
                         <h3 class="font-bold">
                             Status
                         </h3>
@@ -122,27 +119,24 @@
                             {/each}
                         </select>
                     </div>
-                    <br/>
-                    <div class="w-2/3">
+                    <div class="pt-5">
                         <h3 class="font-bold">
                             Priority
                         </h3>
-                        <select bind:value={task.level} class="select select-sm select-bordered w-full max-w-xs">
+                        <select bind:value={task.level} class="select select-sm select-bordered w-full max-w-sm">
                             <option disabled selected>Pick a priority, previous: {task.level}</option>
                             {#each levels as level}
                                 <option value={level}>{level}</option>
                             {/each}
                         </select>
                     </div>
-                    <br/>
-                    <div class="w-2/3">
+                    <div class="pt-5">
                         <h3 class="font-bold">Started At</h3>
-                        <input bind:value={task.startedAt} type="datetime-local" placeholder="{formatDateString(task.startedAt)}" class="input input-sm input-bordered w-2/3 max-w-xs" />
+                        <input bind:value={task.startedAt} type="datetime-local" placeholder="{formatDateString(task.startedAt)}" class="input input-sm input-bordered max-w-sm" />
                     </div>
-                    <br/>
-                    <div class="w-2/3">
+                    <div class="pt-5">
                         <h3 class="font-bold">Completed At</h3>
-                        <input bind:value={task.completedAt} type="datetime-local" placeholder="{formatDateString(task.completedAt)}" class="input input-sm input-bordered w-2/3 max-w-xs" />
+                        <input bind:value={task.completedAt} type="datetime-local" placeholder="{formatDateString(task.completedAt)}" class="input input-sm input-bordered max-w-sm" />
                     </div>
                     <div class="card-actions pt-5 justify-end">
                         <button class="btn btn-ghost btn-sm btn-outline" type="submit">Submit</button>

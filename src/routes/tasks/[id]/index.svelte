@@ -93,7 +93,7 @@
 </svelte:head>
 
 <div class="flex mx-auto justify-start pl-20 pt-20">
-    <h1 class=" title-font font-bold text-2xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-3xl">Details of: &nbsp;{task.name}</h1>
+    <h1 class=" title-font font-bold text-2xl">Details of: &nbsp;{task.name}</h1>
 </div>
 
 <section class="pt-5">
@@ -106,15 +106,15 @@
                 </div>
                 <h2 class="card-title">{task.name}</h2>
                 <br>
-                <div class="w-2/3">
+                <div class="pt-5">
                     <h3 class="font-bold">ID</h3>
                     <p>{task.id}</p>
                 </div>
-                <div class="w-2/3">
+                <div class="pt-5">
                     <h3 class="font-bold">Description</h3>
                     <p>{task.description}</p>
                 </div>
-                <div class="w-2/3">
+                <div class="pt-5">
                     <h3 class="font-bold">Assigned Employees</h3>
                     <ul>
                         {#each task.assignedEmployees as employee}
@@ -122,7 +122,7 @@
                             {/each}
                     </ul>
                 </div>
-                <div class="w-2/3">
+                <div class="pt-5">
                     <h3 class="font-bold">
                         Status
                     </h3>
@@ -151,7 +151,7 @@
                             </ul>
                         </div>
                 </div>
-                <div class="w-2/3">
+                <div class="pt-5">
                     <h3 class="font-bold">
                         Priority
                     </h3>
@@ -180,7 +180,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="w-2/3">
+                <div class="pt-5">
                     <h3 class="font-bold">Started at</h3>
                     {#if !task.startedAt}
                         <p>No data</p>
@@ -190,7 +190,7 @@
                         </p>
                     {/if}
                 </div>
-                <div class="w-2/3">
+                <div class="pt-5">
                     <h3 class="font-bold">Completed at</h3>
                     {#if !task.completedAt}
                         <p>No data</p>

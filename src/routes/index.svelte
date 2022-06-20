@@ -75,6 +75,13 @@
 
     const levelSortOrder = ['LOW', 'MEDIUM', 'HIGH'];
     const statusSortOrder = ['NOT-STARTED', 'ON-GOING', 'COMPLETED', 'POSTPONED'];
+
+    // Filtering
+    let search = undefined;
+    $: paginatedItems = search ?
+        items.filter(i => {
+            return i.name.match(`${search}.*`)
+        }) : paginate({items, pageSize, currentPage});
 </script>
 
 <svelte:head>
@@ -82,266 +89,292 @@
 </svelte:head>
 
 <div class="flex mx-auto justify-start pl-20 pt-20">
-    <h1 class=" title-font font-bold text-2xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-3xl">Your Dashboard</h1>
+    <h1 class=" title-font font-bold text-2xl">Your Dashboard</h1>
 </div>
 
 <section class="pt-5">
     <div class="container mx-auto flex flex-wrap p-8 rounded-box w-full">
-                <label class="label">
-                    <span class="label-text font-bold text-lg pb-5">Tasks assigned to you</span>
-                </label>
-                <div class="overflow-x-auto pt-10">
-                    <table class="table table-zebra">
-                        <!-- head -->
-                        <thead>
-                        <tr>
-                            <th>
-                                <div class="dropdown">
-                                    <label tabindex="0" class="btn m-1 btn-xs btn-ghost">
-                                        ID
-                                        <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                             viewBox="0 0 24 24">
-                                            <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/>
-                                        </svg>
-                                    </label>
-                                    <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                                        <li>
-                                            <button class="btn-sm" on:click={() => items = items.sort((a, b) => a.id - b.id) }>
-                                                ASCENDING
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button class="btn-sm" on:click={() => items = items.sort((a, b) => a.id - b.id).reverse() }>
-                                                DESCENDING
-                                            </button>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </th>
-                            <th class="justify-items-center">
-                                <div class="dropdown">
-                                    <label tabindex="0" class="btn m-1 btn-xs btn-ghost">
-                                        Name
-                                        <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                             viewBox="0 0 24 24">
-                                            <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/>
-                                        </svg>
-                                    </label>
-                                    <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                                        <li>
-                                            <button class="btn-sm" on:click={() => items = items.sort((a, b) => a.name.localeCompare(b.name))}
-                                            >ASCENDING
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button class="btn-sm" on:click={() => items = items.sort((a, b) => a.name.localeCompare(b.name)).reverse()}
-                                            >DESCENDING
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button class="btn-sm" on:click={() => items = items.sort((a, b) => a.id - b.id) }>
-                                                DEFAULT
-                                            </button>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </th>
-                            <th>
-                                <div class="dropdown">
-                                    <label tabindex="0" class="btn m-1 btn-xs btn-ghost">
-                                        Assignee
-                                        <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                             viewBox="0 0 24 24">
-                                            <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/>
-                                        </svg>
-                                    </label>
-                                    <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                                        <li>
-                                            <button class="btn-sm" on:click={() => items = items.sort((a, b) => a.assignee.localeCompare(b.assignee))}
-                                            >ASCENDING
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button class="btn-sm" on:click={() => items = items.sort((a, b) => a.assignee.localeCompare(b.assignee)).reverse()}
-                                            >DESCENDING
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button class="btn-sm" on:click={() => items = items.sort((a, b) => a.id - b.id) }>
-                                                DEFAULT
-                                            </button>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </th>
-                            <th>
-                                <div class="dropdown">
-                                    <label tabindex="0" class="btn m-1 btn-xs btn-ghost">
-                                        Priority
-                                        <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                             viewBox="0 0 24 24">
-                                            <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/>
-                                        </svg>
-                                    </label>
-                                    <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                                        <li>
-                                            <button class="btn-sm" on:click={() => items = items.sort((a, b) => levelSortOrder.indexOf(a.level) - levelSortOrder.indexOf(b.level))}
-                                            >ASCENDING
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button class="btn-sm" on:click={() => items = items.sort((a, b) => levelSortOrder.indexOf(a.level) - levelSortOrder.indexOf(b.level)).reverse()}
-                                            >DESCENDING
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button class="btn-sm" on:click={() => items = items.sort((a, b) => a.id - b.id) }>
-                                                DEFAULT
-                                            </button>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </th>
-                            <th class="content-center">
-                                <div class="dropdown">
-                                    <label tabindex="0" class="btn m-1 btn-xs btn-ghost">
-                                        Status
-                                        <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                             viewBox="0 0 24 24">
-                                            <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/>
-                                        </svg>
-                                    </label>
-                                    <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                                        <li>
-                                            <button class="btn-sm" on:click={() => items = items.sort((a, b) => statusSortOrder.indexOf(a.status) - statusSortOrder.indexOf(b.status))}
-                                            >ASCENDING
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button class="btn-sm" on:click={() => items = items.sort((a, b) => statusSortOrder.indexOf(a.status) - statusSortOrder.indexOf(b.status)).reverse()}
-                                            >DESCENDING
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button class="btn-sm" on:click={() => items = items.sort((a, b) => a.id - b.id) }>
-                                                DEFAULT
-                                            </button>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </th>
-                            <th>
-                                <div class="dropdown">
-                                    <label tabindex="0" class="btn m-1 btn-xs btn-ghost">
-                                        Started
-                                        <br>
-                                        <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                             viewBox="0 0 24 24">
-                                            <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/>
-                                        </svg>
-                                    </label>
-                                    <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                                        <li>
-                                            <button class="btn-sm" on:click={() => items = items.sort((a, b) => a.startedAt.localeCompare(b.startedAt))}
-                                            >ASCENDING
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button class="btn-sm" on:click={() => items = items.sort((a, b) => a.startedAt.localeCompare(b.startedAt)).reverse()}
-                                            >DESCENDING
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button class="btn-sm" on:click={() => items = items.sort((a, b) => a.id - b.id) }>
-                                                DEFAULT
-                                            </button>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </th>
-                            <th>
-                                <div class="dropdown">
-                                    <label tabindex="0" class="btn m-1 btn-xs btn-ghost">
-                                        Completed
-                                        <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                             viewBox="0 0 24 24">
-                                            <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/>
-                                        </svg>
-                                    </label>
-                                    <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                                        <li>
-                                            <button class="btn-sm" on:click={() => items = items.sort((a, b) => a.completedAt.localeCompare(b.completedAt))}
-                                            >ASCENDING
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button class="btn-sm" on:click={() => items = items.sort((a, b) => a.completedAt.localeCompare(b.completedAt)).reverse()}
-                                            >DESCENDING
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button class="btn-sm" on:click={() => items = items.sort((a, b) => a.id - b.id) }>
-                                                DEFAULT
-                                            </button>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </th>
-                            <th>Util</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {#each paginatedItems as task}
-                            <tr>
-                                <td>{task.id}</td>
-                                <td>{task.name}</td>
-                                <td>{task.assignee}</td>
-                                {#if task.level === 'MEDIUM'}
-                                    <td style="background: yellow">{task.level}</td>
-                                {:else if task.level === 'HIGH'}
-                                    <td style="background: red">{task.level}</td>
-                                {:else}
-                                    <td style="background: lawngreen">{task.level}</td>
-                                {/if}
+        <h2 class="card-title font-bold text-lg">
+            Tasks assigned to you
+        </h2>
 
-                                <td>
-                                    {task.status}
-                                </td>
-                                <td>
-                                    {#if !task.startedAt}
-                                        <button on:click={() => startTask(task)} class="btn btn-ghost btn-sm btn-outline">Start Task</button>
-                                    {:else }
-                                        {formatDateString(task.startedAt)}
-                                    {/if}
-                                </td>
-                                <td>
-                                    {#if !task.completedAt}
-                                        <button on:click={() => completeTask(task)} class="btn btn-ghost btn-sm btn-outline">Complete Task</button>
-                                    {:else }
-                                        <p>
-                                            {formatDateString(task.completedAt)}
-                                        </p>
-                                    {/if}
-                                </td>
-                            <td>
-                                <a class="btn btn-sm btn-outline btn-ghost" rel="external" sveltekit:prefetch="" href="/tasks/{task.id}" >Details</a>
-                            </td>
-                            </tr>
-                        {/each}
-                        </tbody>
-                    </table>
-                    <div class="btn-group nav pt-5">
-                        <LightPaginationNav
-                                totalItems="{items.length}"
-                                pageSize="{pageSize}"
-                                currentPage="{currentPage}"
-                                limit="{1}"
-                                showStepOptions="{true}"
-                                on:setPage="{(p) => currentPage = p.detail.page}"
-                        />
-                    </div>
-                </div>
+        <div class="overflow-x-auto pt-10">
+            <div class="pb-2">
+                <label class="label label-text font-bold" for="filter">
+                    Search
+                </label>
+                <input type="search" id="filter" bind:value={search} class="input input-sm input-bordered max-w-xs"
+                       placeholder="Type a Task name"/>
             </div>
+            <table class="table table-zebra">
+                <!-- head -->
+                <thead>
+                <tr>
+                    <th>
+                        <div class="dropdown">
+                            <label tabindex="0" class="btn m-1 btn-xs btn-ghost">
+                                ID
+                                <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                     viewBox="0 0 24 24">
+                                    <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/>
+                                </svg>
+                            </label>
+                            <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                                <li>
+                                    <button class="btn-sm" on:click={() => items = items.sort((a, b) => a.id - b.id) }>
+                                        ASCENDING
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="btn-sm"
+                                            on:click={() => items = items.sort((a, b) => a.id - b.id).reverse() }>
+                                        DESCENDING
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </th>
+                    <th class="justify-items-center">
+                        <div class="dropdown">
+                            <label tabindex="0" class="btn m-1 btn-xs btn-ghost">
+                                Name
+                                <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                     viewBox="0 0 24 24">
+                                    <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/>
+                                </svg>
+                            </label>
+                            <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                                <li>
+                                    <button class="btn-sm"
+                                            on:click={() => items = items.sort((a, b) => a.name.localeCompare(b.name))}
+                                    >ASCENDING
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="btn-sm"
+                                            on:click={() => items = items.sort((a, b) => a.name.localeCompare(b.name)).reverse()}
+                                    >DESCENDING
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="btn-sm" on:click={() => items = items.sort((a, b) => a.id - b.id) }>
+                                        DEFAULT
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="dropdown">
+                            <label tabindex="0" class="btn m-1 btn-xs btn-ghost">
+                                Assignee
+                                <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                     viewBox="0 0 24 24">
+                                    <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/>
+                                </svg>
+                            </label>
+                            <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                                <li>
+                                    <button class="btn-sm"
+                                            on:click={() => items = items.sort((a, b) => a.assignee.localeCompare(b.assignee))}
+                                    >ASCENDING
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="btn-sm"
+                                            on:click={() => items = items.sort((a, b) => a.assignee.localeCompare(b.assignee)).reverse()}
+                                    >DESCENDING
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="btn-sm" on:click={() => items = items.sort((a, b) => a.id - b.id) }>
+                                        DEFAULT
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="dropdown">
+                            <label tabindex="0" class="btn m-1 btn-xs btn-ghost">
+                                Priority
+                                <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                     viewBox="0 0 24 24">
+                                    <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/>
+                                </svg>
+                            </label>
+                            <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                                <li>
+                                    <button class="btn-sm"
+                                            on:click={() => items = items.sort((a, b) => levelSortOrder.indexOf(a.level) - levelSortOrder.indexOf(b.level))}
+                                    >ASCENDING
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="btn-sm"
+                                            on:click={() => items = items.sort((a, b) => levelSortOrder.indexOf(a.level) - levelSortOrder.indexOf(b.level)).reverse()}
+                                    >DESCENDING
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="btn-sm" on:click={() => items = items.sort((a, b) => a.id - b.id) }>
+                                        DEFAULT
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </th>
+                    <th class="content-center">
+                        <div class="dropdown">
+                            <label tabindex="0" class="btn m-1 btn-xs btn-ghost">
+                                Status
+                                <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                     viewBox="0 0 24 24">
+                                    <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/>
+                                </svg>
+                            </label>
+                            <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                                <li>
+                                    <button class="btn-sm"
+                                            on:click={() => items = items.sort((a, b) => statusSortOrder.indexOf(a.status) - statusSortOrder.indexOf(b.status))}
+                                    >ASCENDING
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="btn-sm"
+                                            on:click={() => items = items.sort((a, b) => statusSortOrder.indexOf(a.status) - statusSortOrder.indexOf(b.status)).reverse()}
+                                    >DESCENDING
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="btn-sm" on:click={() => items = items.sort((a, b) => a.id - b.id) }>
+                                        DEFAULT
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="dropdown">
+                            <label tabindex="0" class="btn m-1 btn-xs btn-ghost">
+                                Started
+                                <br>
+                                <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                     viewBox="0 0 24 24">
+                                    <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/>
+                                </svg>
+                            </label>
+                            <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                                <li>
+                                    <button class="btn-sm"
+                                            on:click={() => items = items.sort((a, b) => a.startedAt.localeCompare(b.startedAt))}
+                                    >ASCENDING
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="btn-sm"
+                                            on:click={() => items = items.sort((a, b) => a.startedAt.localeCompare(b.startedAt)).reverse()}
+                                    >DESCENDING
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="btn-sm" on:click={() => items = items.sort((a, b) => a.id - b.id) }>
+                                        DEFAULT
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="dropdown">
+                            <label tabindex="0" class="btn m-1 btn-xs btn-ghost">
+                                Completed
+                                <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                     viewBox="0 0 24 24">
+                                    <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/>
+                                </svg>
+                            </label>
+                            <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                                <li>
+                                    <button class="btn-sm"
+                                            on:click={() => items = items.sort((a, b) => a.completedAt.localeCompare(b.completedAt))}
+                                    >ASCENDING
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="btn-sm"
+                                            on:click={() => items = items.sort((a, b) => a.completedAt.localeCompare(b.completedAt)).reverse()}
+                                    >DESCENDING
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="btn-sm" on:click={() => items = items.sort((a, b) => a.id - b.id) }>
+                                        DEFAULT
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </th>
+                    <th>Util</th>
+                </tr>
+                </thead>
+                <tbody>
+                {#each paginatedItems as task}
+                    <tr>
+                        <td>{task.id}</td>
+                        <td>{task.name}</td>
+                        <td>{task.assignee}</td>
+                        {#if task.level === 'MEDIUM'}
+                            <td style="background: yellow">{task.level}</td>
+                        {:else if task.level === 'HIGH'}
+                            <td style="background: red">{task.level}</td>
+                        {:else}
+                            <td style="background: lawngreen">{task.level}</td>
+                        {/if}
+
+                        <td>
+                            {task.status}
+                        </td>
+                        <td>
+                            {#if !task.startedAt}
+                                <button on:click={() => startTask(task)} class="btn btn-ghost btn-sm btn-outline">Start
+                                    Task
+                                </button>
+                            {:else }
+                                {formatDateString(task.startedAt)}
+                            {/if}
+                        </td>
+                        <td>
+                            {#if !task.completedAt}
+                                <button on:click={() => completeTask(task)} class="btn btn-ghost btn-sm btn-outline">
+                                    Complete Task
+                                </button>
+                            {:else }
+                                <p>
+                                    {formatDateString(task.completedAt)}
+                                </p>
+                            {/if}
+                        </td>
+                        <td>
+                            <a class="btn btn-sm btn-outline btn-ghost" rel="external" sveltekit:prefetch=""
+                               href="/tasks/{task.id}">Details</a>
+                        </td>
+                    </tr>
+                {/each}
+                </tbody>
+            </table>
+            <div class="btn-group nav pt-5">
+                <LightPaginationNav
+                        totalItems="{items.length}"
+                        pageSize="{pageSize}"
+                        currentPage="{currentPage}"
+                        limit="{1}"
+                        showStepOptions="{true}"
+                        on:setPage="{(p) => currentPage = p.detail.page}"
+                />
+            </div>
+        </div>
+    </div>
 </section>
 
 

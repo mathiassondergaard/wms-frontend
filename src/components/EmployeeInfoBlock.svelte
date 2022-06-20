@@ -6,12 +6,12 @@
 <h2 class="font-bold text-lg">Personal info</h2>
 <br/>
 {#each Object.entries(employee) as [key, value]}
-    <div class="w-2/3">
+    <div class="pt-5">
         <h3 class="font-bold">{key.charAt(0).toUpperCase() + key.slice(1)}</h3>
         <p>{value}</p>
     </div>
 {/each}
-<div class="w-2/3">
+<div class="pt-5">
     <h3 class="font-bold">
         Address
     </h3>

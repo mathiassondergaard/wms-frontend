@@ -57,13 +57,13 @@
 </svelte:head>
 
 <div class="flex mx-auto justify-start pl-20 pt-20">
-    <h1 class=" title-font font-bold text-2xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-3xl">
+    <h1 class=" title-font font-bold text-2xl">
         Hi {details.employee.name}!</h1>
 </div>
 
 <section class="pt-5">
     <div class="container mx-auto flex flex-wrap p-8 rounded-box w-full">
-        <div class="card lg:card-side w-2/3 bg-base-100 shadow-xl">
+        <div class="card lg:card-side bg-base-100 shadow-xl">
 
             <div class="card-body">
                 <div class="card-actions justify-end pt-5">
@@ -73,30 +73,36 @@
                 </div>
                 <h2 class="card-title font-bold text-xl">Your profile</h2>
                 <br/>
-                <div class="grid grid-cols-7 gap-3 w-full">
-                    <div class="col-span-3">
+                <div class="grid grid-cols-3 gap-1 w-full">
+                    <div>
                         <EmployeeInfoBlock employee={details.employee} address={details.address} />
                     </div>
                     <div>
                         <UserInfoBlock user={details.user} />
-                        <br/>
-                        <div class="w-2/3">
-                            <h3 class="font-bold">Change password</h3>
+                    </div>
+                    <div>
+                            <h3 class="font-bold text-lg">Change password</h3>
+                        <div class="pt-5">
+                            <form on:submit|preventDefault={changePw}>
                                 <div class="pt-2">
-                                    <input placeholder="Old password" bind:value={oldPw} class="input input-sm input-bordered max-w-xs"
-                                           type="password">
-                                </div>
-                                <div class="pt-2">
-                                    <input placeholder="New password (10 chars)" bind:value={pw} class="input input-sm input-bordered max-w-xs"
-                                           type="password">
-                                </div>
-                                <div class="pt-2">
-                                    <input placeholder="Confirm new password" bind:value={confirmPw} class="input input-sm input-bordered max-w-xs"
-                                           type="password">
-                                </div>
-                                <div class="pt-2">
-                                    <button class="btn-success btn btn-sm btn-ghost btn-outline" on:click={() => changePw()}>Submit</button>
-                                </div>
+                                <input placeholder="Old password" bind:value={oldPw} class="input input-sm input-bordered max-w-sm"
+                                       type="password"/>
+                            </div>
+                            <div class="pt-2">
+                                <input placeholder="New PW (10 chars)" bind:value={pw} class="input input-sm input-bordered max-w-sm"
+                                       type="password">
+                                <label class="label">
+                                    <span class="label-text-alt">Must be at least 10 chars.</span>
+                                </label>
+                            </div>
+                            <div class="pt-2">
+                                <input placeholder="Confirm new password" bind:value={confirmPw} class="input input-sm input-bordered max-w-sm"
+                                       type="password">
+                            </div>
+                            <div class="pt-5">
+                                <button type="submit" class="btn-success btn btn-sm btn-ghost btn-outline">Submit</button>
+                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -109,7 +115,7 @@
 </section>
 
 <style>
-    label {
+    input, label {
         display: inline-block;
     }
 

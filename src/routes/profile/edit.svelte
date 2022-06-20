@@ -67,7 +67,7 @@
 </svelte:head>
 
 <div class="flex mx-auto justify-start pl-20 pt-20">
-    <h1 class=" title-font font-bold text-2xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-3xl">
+    <h1 class=" title-font font-bold text-2xl">
         Hi {details.employee.name}!</h1>
 </div>
 
@@ -83,58 +83,61 @@
                 <h2 class="card-title font-bold text-xl">Edit details</h2>
                 <br/>
                 <form on:submit|preventDefault={submit}>
-                <div class="grid grid-cols-7 gap-3 w-full">
-                    <div class="col-span-3">
-                        <h2 class="font-bold text-lg">Personal info</h2>
-                        <br/>
-                        <div class="w-2/3">
-                            <h3 class="font-bold">Name</h3>
-                            <input bind:value={employeeToUpdate.employee.name} type="text" placeholder="{details.employee.name}"
-                                   class="input input-sm input-bordered w-2/3 max-w-xs"/>
-                        </div>
-                        <div class="w-2/3">
-                            <h3 class="font-bold">
-                                Phone
-                            </h3>
-                            <input bind:value={employeeToUpdate.employee.phone} type="text" placeholder="{details.employee.phone}"
-                                   class="input input-sm input-bordered w-2/3 max-w-xs"/>
+                    <div class="grid grid-cols-2 gap-3 w-full">
+                        <div>
+                            <h2 class="font-bold text-lg">Personal info</h2>
+                            <div class="pt-5">
+                                <h3 class="font-bold">Name</h3>
+                                <input bind:value={employeeToUpdate.employee.name} type="text"
+                                       placeholder="{details.employee.name}"
+                                       class="input input-sm input-bordered max-w-sm"/>
                             </div>
-                        <div class="w-2/3">
-                            <h3 class="font-bold">Street</h3>
-                            <input bind:value={employeeToUpdate.employee.address.street} type="text" placeholder="{details.address.street}"
-                                   class="input input-sm input-bordered w-2/3 max-w-xs"/>
-                            <h3 class="font-bold">City</h3>
-                            <input bind:value={employeeToUpdate.employee.address.zip} type="text" placeholder="{details.address.zip}"
-                                       class="input input-sm input-bordered w-2/3 max-w-xs"/>
-                            <h3 class="font-bold">Zip Code</h3>
-                            <input bind:value={employeeToUpdate.employee.address.city} type="text" placeholder="{details.address.city}"
-                                           class="input input-sm input-bordered w-2/3 max-w-xs"/>
-                            <h3 class="font-bold">Country</h3>
-                            <input bind:value={employeeToUpdate.employee.address.country} type="text" placeholder="{details.address.country}"
-                                   class="input input-sm input-bordered w-2/3 max-w-xs"/>
+                            <div class="pt-5">
+                                <h3 class="font-bold">
+                                    Phone
+                                </h3>
+                                <input bind:value={employeeToUpdate.employee.phone} type="text"
+                                       placeholder="{details.employee.phone}"
+                                       class="input input-sm input-bordered max-w-sm"/>
+                            </div>
+                            <div class="pt-5">
+                                <h3 class="font-bold">Street</h3>
+                                <input bind:value={employeeToUpdate.employee.address.street} type="text"
+                                       placeholder="{details.address.street}"
+                                       class="input input-sm input-bordered max-w-sm"/>
+                                <h3 class="font-bold">City</h3>
+                                <input bind:value={employeeToUpdate.employee.address.zip} type="text"
+                                       placeholder="{details.address.zip}"
+                                       class="input input-sm input-bordered max-w-sm"/>
+                                <h3 class="font-bold">Zip Code</h3>
+                                <input bind:value={employeeToUpdate.employee.address.city} type="text"
+                                       placeholder="{details.address.city}"
+                                       class="input input-sm input-bordered max-w-sm"/>
+                                <h3 class="font-bold">Country</h3>
+                                <input bind:value={employeeToUpdate.employee.address.country} type="text"
+                                       placeholder="{details.address.country}"
+                                       class="input input-sm input-bordered max-w-sm"/>
+                            </div>
+                        </div>
+                        <div>
+                            <h2 class="text-lg font-bold">User info</h2>
+                            <div class="pt-5">
+                                <h3 class="font-bold">Username</h3>
+                                <input bind:value={employeeToUpdate.user.username} type="text"
+                                       placeholder="{details.user.username}"
+                                       class="input input-sm input-bordered w-2/3 max-w-xs"/></div>
+                            <div class="pt-5">
+                                <h3 class="font-bold">Email</h3>
+                                <input bind:value={employeeToUpdate.user.email} type="text"
+                                       placeholder="{details.user.email}"
+                                       class="input input-sm input-bordered w-2/3 max-w-xs"/></div>
                         </div>
                     </div>
-                    <div class="col-span-3">
-                        <h2 class="text-lg font-bold">User info</h2>
-                        <br/>
-                        <div class="w-2/3">
-                            <h3 class="font-bold">Username</h3>
-                            <input bind:value={employeeToUpdate.user.username} type="text"
-                                   placeholder="{details.user.username}"
-                                   class="input input-sm input-bordered w-2/3 max-w-xs"/>                        </div>
-                        <div class="w-2/3">
-                            <h3 class="font-bold">Email</h3>
-                            <input bind:value={employeeToUpdate.user.email} type="text"
-                                   placeholder="{details.user.email}"
-                                   class="input input-sm input-bordered w-2/3 max-w-xs"/>                        </div>
-                        <br/>
-                    </div>
-                </div>
-                <div class="card-actions pt-5 justify-end">
                     <div class="card-actions pt-5 justify-end">
-                        <button class="btn btn-ghost btn-sm btn-outline" type="submit">Submit</button>
+                        <div class="card-actions pt-5 justify-end">
+                            <button class="btn btn-ghost btn-sm btn-outline" type="submit">Submit</button>
+                        </div>
                     </div>
-                </div>
                 </form>
             </div>
         </div>

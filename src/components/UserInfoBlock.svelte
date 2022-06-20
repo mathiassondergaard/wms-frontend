@@ -5,7 +5,7 @@
 <h2 class="text-lg font-bold">User info</h2>
 <br/>
 {#each Object.entries(user) as [key, value]}
-    <div class="w-2/3">
+    <div class="pt-5">
         <h3 class="font-bold">{key.charAt(0).toUpperCase() + key.slice(1)}</h3>
         {#if Array.isArray(value)}
             <ul>

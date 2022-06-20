@@ -2,7 +2,7 @@
     import Fa from 'svelte-fa/src/fa.svelte'
     import Notifications from "svelte-notifications";
     import {post} from "$lib/api";
-    import { faTasks, faWarehouse, faPeopleGroup, faUser, faArrowRightFromBracket, faLock, faChalkboard, faPaperPlane, faDownload} from '@fortawesome/free-solid-svg-icons'
+    import { faTasks, faWarehouse, faGear, faUser, faArrowRightFromBracket, faLock, faChalkboard, faPaperPlane, faDownload} from '@fortawesome/free-solid-svg-icons'
     import '../app.css';
     import {goto} from "$app/navigation";
 
@@ -15,34 +15,12 @@
 
 <div class="navbar">
     <div class="navbar-start">
-        <div class="dropdown">
-            <label tabindex="0" class="btn btn-ghost lg:hidden">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                     stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16"/>
-                </svg>
-            </label>
-            <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                <li><a>Item 1</a></li>
-                <li tabindex="0">
-                    <a class="justify-between">
-                        Parent
-                        <Fa icon={faTasks} />
-                    </a>
-                    <ul class="p-2">
-                        <li><a>Submenu 1</a></li>
-                        <li><a>Submenu 2</a></li>
-                    </ul>
-                </li>
-                <li><a>Item 3</a></li>
-            </ul>
-        </div>
-        <a href="/" sveltekit:prefetch="" class="btn btn-ghost normal-case text-xl">Itemizer</a>
+        <a href="/" sveltekit:prefetch="" class="btn btn-ghost normal-case text-2xl">Itemizer</a>
     </div>
     <div class="navbar-center hidden lg:flex">
         <ul class="menu menu-horizontal p-0">
             <li tabindex="0">
-                <a rel="external" sveltekit:prefetch="" href="/tasks">
+                <a rel="external" class="btn-ghost" sveltekit:prefetch="" href="/tasks">
                     <Fa icon={faTasks} />
                     Tasks
                     <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -52,12 +30,12 @@
                 </a>
                 <ul class="p-2">
                     <li>
-                        <a><Fa icon={faChalkboard} />Board</a>
+                        <a rel="external" class="btn-ghost" href="/tasks/board"><Fa icon={faChalkboard} />Board</a>
                     </li>
                 </ul>
             </li>
             <li tabindex="0">
-                <a rel="external" sveltekit:prefetch="">
+                <a rel="external" class="btn-ghost" href="/inventory">
                     <Fa icon={faWarehouse} />
                     Inventory
                     <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -66,33 +44,20 @@
                     </svg>
                 </a>
                 <ul class="p-2">
-                    <li><a rel="external" sveltekit:prefetch=""><Fa icon={faPaperPlane} />Logs</a></li>
-                    <li><a rel="external" sveltekit:prefetch=""><Fa icon={faDownload} />Downloads</a></li>
+                    <li><a rel="external" class="btn-ghost" href="/inventory/logs"><Fa icon={faPaperPlane} />Logs</a></li>
                 </ul>
             </li>
 
             <li tabindex="0">
-                <a rel="external" sveltekit:prefetch="">
+                <a rel="external" class="btn-ghost" href="/manage">
                     <Fa icon={faLock} />
                     Manage
-                    <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                         viewBox="0 0 24 24">
-                        <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/>
-                    </svg>
                 </a>
-                <ul class="p-2">
-                    <li>
-                        <a><Fa icon={faPeopleGroup} />Employees</a>
-                    </li>
-                    <li>
-                        <a><Fa icon={faUser} />Users</a>
-                    </li>
-                </ul>
             </li>
         </ul>
     </div>
     <div class="navbar-end">
-        <div class="dropdown pr-2">
+        <div class="dropdown">
             <label tabindex="0" class="btn m-1 btn-sm btn-ghost">
                 Shortcuts
                 <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -102,14 +67,30 @@
             </label>
             <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
                 <li>
-                    <button class="btn-sm">Add Shortcut
+                    <button class="btn-sm btn-ghost">Add Shortcut
                     </button>
                 </li>
                     <li>
-                        <button class="btn-sm"
-                        >shortcut1
+                        <button class="btn-sm btn-ghost"
+                        >• shortcut1
                         </button>
                     </li>
+            </ul>
+        </div>
+        <div class="dropdown">
+            <label tabindex="0" class="btn m-1 btn-sm btn-ghost">
+                <Fa icon={faGear} size="lg"/>
+                <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                     viewBox="0 0 24 24">
+                    <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/>
+                </svg>
+            </label>
+            <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-32">
+                <li>
+                    <button class="btn-sm btn-ghost">
+                    Collect Logs
+                    </button>
+                </li>
             </ul>
         </div>
             <a href="/profile" rel="external" class="btn btn-ghost btn-sm"><Fa icon={faUser} size="lg"/></a>
