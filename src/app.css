@@ -6,7 +6,7 @@
 table, th, td {
     border: 1px solid;
 }
-th, td {
+th, .center {
     text-align: center;
 }
 .nav :global(.pagination-nav) {

@@ -2,13 +2,20 @@
     import Fa from 'svelte-fa/src/fa.svelte'
     import Notifications from "svelte-notifications";
     import {post} from "$lib/api";
-    import { faTasks, faWarehouse, faGear, faUser, faArrowRightFromBracket, faLock, faChalkboard, faPaperPlane, faDownload} from '@fortawesome/free-solid-svg-icons'
+    import { faTasks, faWarehouse, faGear, faUser, faArrowRightFromBracket, faLock, faChalkboard, faPaperPlane, faDownload} from '@fortawesome/free-solid-svg-icons/index.es'
     import '../app.css';
     import {goto} from "$app/navigation";
+    import {download} from "$lib/fileDownload";
 
     const logout = async () => {
         await post('/auth/log-out');
         await goto('/login');
+    };
+
+    const collectLogs = async () => {
+        const response = await fetch('http://localhost:3000/api/utility/logs/collect', {credentials: 'include'});
+        const blob = await response.blob();
+        return download(blob, 'full_logs.zip');
     };
 
 </script>
@@ -59,26 +66,6 @@
     <div class="navbar-end">
         <div class="dropdown">
             <label tabindex="0" class="btn m-1 btn-sm btn-ghost">
-                Shortcuts
-                <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                     viewBox="0 0 24 24">
-                    <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/>
-                </svg>
-            </label>
-            <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                <li>
-                    <button class="btn-sm btn-ghost">Add Shortcut
-                    </button>
-                </li>
-                    <li>
-                        <button class="btn-sm btn-ghost"
-                        >• shortcut1
-                        </button>
-                    </li>
-            </ul>
-        </div>
-        <div class="dropdown">
-            <label tabindex="0" class="btn m-1 btn-sm btn-ghost">
                 <Fa icon={faGear} size="lg"/>
                 <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                      viewBox="0 0 24 24">
@@ -87,7 +74,7 @@
             </label>
             <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-32">
                 <li>
-                    <button class="btn-sm btn-ghost">
+                    <button on:click={() => collectLogs()} class="btn-sm btn-ghost">
                     Collect Logs
                     </button>
                 </li>

@@ -345,7 +345,7 @@
                             {/if}
                         </td>
                         <td>
-                            {#if !task.completedAt}
+                            {#if !task.completedAt && task.startedAt}
                                 <button on:click={() => completeTask(task)} class="btn btn-ghost btn-sm btn-outline">
                                     Complete Task
                                 </button>
@@ -356,8 +356,65 @@
                             {/if}
                         </td>
                         <td>
-                            <a class="btn btn-sm btn-outline btn-ghost" rel="external" sveltekit:prefetch=""
-                               href="/tasks/{task.id}">Details</a>
+                            <label for="{task.id+2}" class="btn btn-ghost btn-sm btn-outline">Details</label>
+                            <input type="checkbox" id="{task.id+2}" class="modal-toggle" />
+                            <label for="{task.id+2}" class="modal cursor-pointer">
+                                <label class="modal-box relative">
+                                    <h2 class="text-lg font-bold">Viewing {task.name}</h2>
+                                    <div class="pt-5">
+                                        <h3 class="font-bold">ID</h3>
+                                        <p>{task.id}</p>
+                                    </div>
+                                    <div class="pt-5">
+                                        <h3 class="font-bold">Description</h3>
+                                        <p>{task.description}</p>
+                                    </div>
+                                    <div class="pt-5">
+                                        <h3 class="font-bold">Assigned Employees</h3>
+                                        <ul>
+                                            {#each task.assignedEmployees as employee}
+                                                <li>{employee.name}</li>
+                                            {/each}
+                                        </ul>
+                                    </div>
+                                    <div class="pt-5">
+                                        <h3 class="font-bold">Status</h3>
+                                        <p>{task.status}</p>
+                                    </div>
+                                    <div class="pt-5">
+                                        <h3 class="font-bold">Priority</h3>
+                                        <p>{task.level}</p>
+                                    </div>
+                                    <div class="pt-5">
+                                        <h3 class="font-bold">Started at</h3>
+                                        {#if !task.startedAt}
+                                            <p>No data</p>
+                                        {:else }
+                                            <p>
+                                                {formatDateString(task.startedAt)}
+                                            </p>
+                                        {/if}
+                                    </div>
+                                    <div class="pt-5">
+                                        <h3 class="font-bold">Completed at</h3>
+                                        {#if !task.completedAt}
+                                            <p>No data</p>
+                                        {:else }
+                                            <p>
+                                                {formatDateString(task.completedAt)}
+                                            </p>
+                                        {/if}
+                                    </div>
+                                    <div class="card-actions pt-5 justify-end">
+                                        {#if !task.startedAt}
+                                            <button class="btn btn-ghost btn-sm btn-outline" on:click={() => startTask(task)}>Start Task</button>
+                                        {/if}
+                                        {#if !task.completedAt && task.startedAt}
+                                            <button class="btn btn-ghost btn-sm btn-outline" on:click={() => completeTask(task)}>Complete Task</button>
+                                        {/if}
+                                    </div>
+                                </label>
+                            </label>
                         </td>
                     </tr>
                 {/each}

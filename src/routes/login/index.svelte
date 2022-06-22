@@ -42,6 +42,10 @@
     }
 </script>
 
+<svelte:head>
+    <title>Itemizer - Login</title>
+</svelte:head>
+
 <div class="hero min-h-screen bg-base-100">
     <div class="hero-content text-center">
         <div class="max-w-md">

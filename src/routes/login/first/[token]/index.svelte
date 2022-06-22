@@ -1,6 +1,6 @@
 <script context="module">
-    export async function load({page}) {
-        return {props: {token: page.params.token}};
+    export async function load({params}) {
+        return {props: {token: params.token}};
     }
 
 </script>
@@ -10,7 +10,7 @@
     import { getNotificationsContext } from 'svelte-notifications';
     import {options} from '$lib/toaster'
     import {handleResponse} from "$lib/handleResponse";
-    import {post} from '$lib/authApi';
+    import {patch} from '$lib/authApi';
     const { addNotification } = getNotificationsContext();
 
     export let token;
@@ -21,8 +21,14 @@
     const submit = async (password) => {
         if (pw !== confirmPw) {
             addNotification(options('Passwords do not match!', 'warning'));
+            return;
         }
-        const response = await post('/users/first-login', `${password}:${token}`);
+
+        if (pw.length < 9) {
+            addNotification(options('Password must be 10 characters or more!', 'warning'));
+            return;
+        }
+        const response = await patch('/users/first-login', `${password}:${token}`);
 
         const handled = handleResponse(response, addNotification);
 
@@ -36,12 +42,16 @@
 
 </script>
 
+<svelte:head>
+    <title>Itemizer - New Employee</title>
+</svelte:head>
+
 <div class="hero min-h-screen bg-base-100">
     <div class="hero-content text-center">
         <div class="max-w-md">
             <div class="card rounded-box card-bordered border-gray-300 shadow-xl w-96">
                 <div class="pt-5">
-                    <h1 class="font-bold text-lg">WMS LOGIN</h1>
+                    <h1 class="font-bold text-lg">Itemizer - New Employee</h1>
                 </div>
                 <div class="p-5">
                     <form on:submit|preventDefault={submit(pw)}>

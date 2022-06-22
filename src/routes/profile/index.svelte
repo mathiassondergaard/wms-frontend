@@ -37,7 +37,14 @@
     const changePw = async () => {
         if (pw !== confirmPw) {
             addNotification(options('Passwords do not match!', 'warning'));
+            return;
         }
+
+        if (pw.length < 9) {
+            addNotification(options('Password must be 10 characters or more!', 'warning'));
+            return;
+        }
+
         const response = await patch(`/users/${details.user.id}/password`, `${pw}:${oldPw}`);
 
         const handled = handleResponse(response, addNotification);
