@@ -1,8 +1,15 @@
 <script context="module">
     export async function load({fetch}) {
-        const response = await fetch('http://localhost:3000/api/auth/token/verify', {credentials: "include"});
+        try {
+            const response = await fetch('http://localhost:3000/api/auth/token/verify', {credentials: "include"});
 
-        if (response.status !== 200) {
+            if (response.status !== 200) {
+                return {
+                    status: 302,
+                    redirect: "/login"
+                };
+            }
+        } catch (e) {
             return {
                 status: 302,
                 redirect: "/login"
@@ -89,14 +96,11 @@
 </svelte:head>
 
 <div class="flex mx-auto justify-start pl-20 pt-20">
-    <h1 class=" title-font font-bold text-2xl">Your Dashboard</h1>
+    <h1 class=" title-font font-bold text-2xl">Tasks assigned to you</h1>
 </div>
 
 <section class="pt-5">
     <div class="container mx-auto flex flex-wrap p-8 rounded-box w-full">
-        <h2 class="card-title font-bold text-lg">
-            Tasks assigned to you
-        </h2>
 
         <div class="overflow-x-auto pt-10">
             <div class="pb-2">
@@ -321,21 +325,25 @@
                 <tbody>
                 {#each paginatedItems as task}
                     <tr>
-                        <td>{task.id}</td>
-                        <td>{task.name}</td>
-                        <td>{task.assignee}</td>
+                        <td class="center">
+                            {task.id}</td>
+                        <td class="center">
+                            {task.name}</td>
+                        <td class="center">
+                            {task.assignee}</td>
                         {#if task.level === 'MEDIUM'}
-                            <td style="background: yellow">{task.level}</td>
+                            <td class="center"
+                            style="background: yellow">{task.level}</td>
                         {:else if task.level === 'HIGH'}
-                            <td style="background: red">{task.level}</td>
+                            <td class="center" style="background: red">{task.level}</td>
                         {:else}
-                            <td style="background: lawngreen">{task.level}</td>
+                            <td class="center" style="background: lawngreen">{task.level}</td>
                         {/if}
 
-                        <td>
+                        <td class="center">
                             {task.status}
                         </td>
-                        <td>
+                        <td class="center">
                             {#if !task.startedAt}
                                 <button on:click={() => startTask(task)} class="btn btn-ghost btn-sm btn-outline">Start
                                     Task
@@ -344,7 +352,7 @@
                                 {formatDateString(task.startedAt)}
                             {/if}
                         </td>
-                        <td>
+                        <td class="center">
                             {#if !task.completedAt && task.startedAt}
                                 <button on:click={() => completeTask(task)} class="btn btn-ghost btn-sm btn-outline">
                                     Complete Task

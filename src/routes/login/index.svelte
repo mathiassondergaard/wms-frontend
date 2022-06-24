@@ -34,6 +34,7 @@
 
             const handled = handleResponse(response, addNotification);
             if (handled) {
+
                 await goto('/');
             }
         } catch (err) {

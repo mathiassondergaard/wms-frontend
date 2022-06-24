@@ -1,11 +1,18 @@
 <script context="module">
     export async function load({fetch}) {
-        const response = await fetch('http://localhost:3000/api/auth/admin/token/verify', {credentials: "include"});
+        try {
+            const response = await fetch('http://localhost:3000/api/auth/admin/token/verify', {credentials: "include"});
 
-        if (response.status !== 200) {
+            if (response.status !== 200) {
+                return {
+                    status: 302,
+                    redirect: "/"
+                };
+            }
+        } catch (e) {
             return {
                 status: 302,
-                redirect: "/login"
+                redirect: "/"
             };
         }
 
