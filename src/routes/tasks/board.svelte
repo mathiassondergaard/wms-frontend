@@ -55,7 +55,8 @@
                     {:else }
                         {#each tasksNotStarted as task}
                             <div class="card bg-base-100 p-2">
-                                <div tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box">
+                                <div tabindex="0" id="{task.id}" on:click={() => {document.getElementById(task.id).scrollIntoView();
+}} class="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box">
                                     <div class="collapse-title text-lg font-medium">
                                         {task.name}
                                     </div>
@@ -127,7 +128,8 @@
                     {:else }
                         {#each tasksOnGoing as task}
                             <div class="card bg-base-100 p-2">
-                                <div tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box">
+                                <div tabindex="0" id="{task.id}" on:click={() => {document.getElementById(task.id).scrollIntoView();
+}} class="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box">
                                     <div class="collapse-title text-lg font-medium">
                                         {task.name}
                                     </div>
@@ -199,7 +201,8 @@
                     {:else }
                         {#each tasksCompleted as task}
                             <div class="card bg-base-100 p-2">
-                                <div tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box">
+                                <div tabindex="0" id="{task.id}" on:click={() => {document.getElementById(task.id).scrollIntoView();
+}} class="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box">
                                     <div class="collapse-title text-lg font-medium">
                                         {task.name}
                                     </div>
@@ -271,7 +274,8 @@
                     {:else }
                         {#each tasksPostponed as task}
                             <div class="card bg-base-100 p-2">
-                                <div tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box">
+                                <div tabindex="0" id="{task.id}" on:click={() => {document.getElementById(task.id).scrollIntoView();
+}} class="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box">
                                     <div class="collapse-title text-lg font-medium">
                                         {task.name}
                                     </div>

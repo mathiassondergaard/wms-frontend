@@ -88,7 +88,7 @@
     socket.on('updated-stock-bulk', (data) => {
         console.log(data);
         data.forEach(i => {
-            let index = items.map((x) => {return x.SKU;}).indexOf(data.SKU);
+            let index = items.indexOf(items.find(x => x.SKU === i.SKU));
             console.log(index);
             items[index].stock = i.stock;
             items[index].status = i.status;
